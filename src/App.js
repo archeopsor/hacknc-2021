@@ -1,4 +1,5 @@
 import Cloud from './components/Cloud.js';
+import UploadBox from './components/UploadBox.js';
 import './App.css';
 import { connect } from 'react-redux';
 
@@ -8,8 +9,9 @@ const mapStateToProps = (state) => {
 
 function App(store) {
   return (
-    <div>
+    <div id="app-container">
       <Cloud store={store} />
+      <UploadBox store={store} />
     </div>
   );
 }
