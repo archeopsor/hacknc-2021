@@ -58,16 +58,18 @@ const UploadBox = (store) => {
                 <div class="fileupload">
                     <input type="file" accept="audio/*" />
                 </div>
-                <Recorder 
-                    record={true}
-                    title={"New recording"}
-                    showUIAudio
-                    audioURL={store_data.audio.url}
-                    handleAudioStop={data => handleAudioStop(data)}
-                    handleAudioUpload={file => handleAudioUpload(file)}
-                    handleReset={() => handleReset()}
-                    mimeTypeToUseWhenRecording={`audio/webm`}
-                />
+                <div class="recorder-container">
+                    <Recorder 
+                        record={true}
+                        title={"New recording"}
+                        showUIAudio
+                        audioURL={store_data.audio.url}
+                        handleAudioStop={data => handleAudioStop(data)}
+                        handleAudioUpload={file => handleAudioUpload(file)}
+                        handleReset={() => handleReset()}
+                        mimeTypeToUseWhenRecording={`audio/webm`}
+                    />
+                </div>
                 <input type="text" placeholder="Enter text here" />
             </div>
         )
