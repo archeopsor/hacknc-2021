@@ -49,6 +49,10 @@ const UploadBox = (store) => {
         }
     }
 
+    const run = () => {
+        
+    }
+
     // If a file exists, only show a button to clear the file
     // Otherwise, show all the input methods
     if (show) {
@@ -67,10 +71,12 @@ const UploadBox = (store) => {
                         handleAudioStop={data => handleAudioStop(data)}
                         handleAudioUpload={file => handleAudioUpload(file)}
                         handleReset={() => handleReset()}
-                        mimeTypeToUseWhenRecording={`audio/webm`}
                     />
                 </div>
                 <input type="text" placeholder="Enter text here" />
+                <div class="runbutton">
+                    <button onClick={run}>Create word cloud</button>
+                </div>
             </div>
         )
     }
