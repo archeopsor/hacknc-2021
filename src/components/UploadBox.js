@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Recorder} from 'react-voice-recorder';
+import $ from 'jquery';
 import 'react-voice-recorder/dist/index.css';
 import './UploadBox.css';
 
@@ -50,7 +51,15 @@ const UploadBox = (store) => {
     }
 
     const run = () => {
-        
+        /*$.ajax({
+            type: "POST",
+            url: "wordcloud.py",
+            data: { param: 'abc123'},
+            async: false,
+            timeout: 1000
+          }).done(function( o ) {
+             window.alert("Request run");
+          });*/
     }
 
     // If a file exists, only show a button to clear the file
