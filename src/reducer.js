@@ -1,12 +1,12 @@
 function getWords(data) {
     var words = []
-
     for (const key in data) {
         words.push({
             text: key,
             value: data.key
         })
     }
+    console.log(words)
 
     return words;
 }

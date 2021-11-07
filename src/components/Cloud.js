@@ -34,10 +34,10 @@ const Cloud = (store) => {
         rotations: 1,
         rotationAngles: [0],
         enableTooltip: false,
-        fontFamily: "Comfortaa"
+        fontFamily: "Comfortaa",
         // rotations: 2,
         // rotationAngles: [-90, 0],
-        // fontSizes: [12, 20]
+        fontSizes: [5, 15]
       };
 
     return (
