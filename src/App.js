@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 function App(store) {
   return (
     <div id="app-container">
-      <h1><u>Tip of my tongue</u></h1>
+      <h1><u>Tip of my Tongue</u></h1>
       <p>Enter an audio file, record your own audio, or type in some text to generate a word cloud with closely related nouns!</p>
       <p>This text or audio should contain a noun and then some descriptors. Longer phrases will take a longer time to finish, but will probably have better results. Check the bottom of this page for some things to try out!</p>
       <Cloud store={store} />
