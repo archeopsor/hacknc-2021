@@ -1,5 +1,6 @@
 body {
-    text-align: center
+    text-align: center;
+    font-family: "Comfortaa";
 }
 
 input[type="file"] {
@@ -8,6 +9,7 @@ input[type="file"] {
     padding: 5px 15px;
     background: #dfb46e;
     margin: auto;
+    text-align: center;
 }
 
 input[type="file"]:hover {
@@ -28,6 +30,14 @@ input[type="text"] {
     border: 2px solid black;
     background-color: #dfb46e;
     margin: 10px;
+    text-align: center;
+}
+
+textarea {
+    border: 2px solid black;
+    background-color: #dfb46e;
+    margin: 10px;
+    text-align: center;
 }
 
 button {
@@ -43,4 +53,14 @@ button {
 .recorder-container {
     width: 25vw;
     margin: auto;
+}
+
+.runbutton {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.runbutton:active {
+    background-color: #2a2722;
+    color: #ffffff;
 }
