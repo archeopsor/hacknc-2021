@@ -16,7 +16,7 @@ const Cloud = (store) => {
             [0.5, 'crimson'],
         ])
 
-        for (const key of colors.keys()) {
+        for (const key of colors) {
             if (freq < key) {
                 return colors.get(key);
             }

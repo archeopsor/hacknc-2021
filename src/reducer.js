@@ -1,7 +1,7 @@
 function getWords(data) {
     var words = []
 
-    for (const key in data.keys()) {
+    for (const key in data) {
         words.push({
             text: key,
             value: data.key
@@ -12,7 +12,13 @@ function getWords(data) {
 }
 
 function countWords(data) {
-    return 0; // TODO
+    var sum = 0;
+    
+    for (const val in data.values()) {
+        sum += val;
+    }
+
+    return sum;
 }
 
 const initialState = {
