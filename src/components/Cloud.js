@@ -5,8 +5,12 @@ const Cloud = (store) => {
     var store_data = store.store.store.getState()
 
     const determineColor = (value) => {
-        var freq = value / store_data.data.total;
-        // TODO
+        const freq = value / store_data.data.total;
+        const colors = new Map([
+            ['']
+        ])
+
+        
         return "blue";
     }
     
@@ -17,7 +21,8 @@ const Cloud = (store) => {
 
     const options = {
         rotations: 1,
-        rotationAngles: [0]
+        rotationAngles: [0],
+        enableTooltip: false,
         // rotations: 2,
         // rotationAngles: [-90, 0],
         // fontSizes: [12, 20]
