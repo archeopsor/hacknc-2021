@@ -55,7 +55,8 @@ const UploadBox = (store) => {
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/process",
-            data: { text: document.getElementById("textinput").value },
+            data: { text: document.getElementById("textinput").value,
+            audio: store_data.audio.url},
             async: true,
             timeout: 60000,
             success: function(msg) {
