@@ -7,13 +7,13 @@ const Cloud = (store) => {
     const determineColor = (value) => {
         const freq = value / store_data.data.total;
         const colors = new Map([
-            [0.05, 'blue'],
-            [0.1, 'navy'],
-            [0.15, 'indigo'],
-            [0.2, 'blueviolet'],
-            [0.3, 'purple'],
-            [0.4, 'magenta'],
-            [0.5, 'crimson'],
+            [0.2, 'blue'],
+            [0.3, 'navy'],
+            [0.4, 'indigo'],
+            [0.5, 'blueviolet'],
+            [0.6, 'purple'],
+            [0.7, 'magenta'],
+            [0.8, 'crimson'],
         ])
 
         for (const key of colors.keys()) {
@@ -37,7 +37,7 @@ const Cloud = (store) => {
         fontFamily: "Comfortaa",
         // rotations: 2,
         // rotationAngles: [-90, 0],
-        fontSizes: [5, 15]
+        fontSizes: [10, 40]
       };
 
     return (
