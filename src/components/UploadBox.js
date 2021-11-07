@@ -20,7 +20,7 @@ const UploadBox = (store) => {
             window.alert("No file available. Make sure you've stopped recording before uploading.")
             return;
         }
-        setShow(false);
+        // setShow(false);
         if (store_data.audio.url) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -51,7 +51,7 @@ const UploadBox = (store) => {
     }
 
     const run = () => {
-        window.alert(document.getElementById("textinput").value);
+        setShow(false);
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/process",

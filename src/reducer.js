@@ -1,8 +1,17 @@
-function getWords() {
-    return []; // TODO
+function getWords(data) {
+    var words = []
+
+    for (const key in data.keys()) {
+        words.push({
+            text: key,
+            value: data.key
+        })
+    }
+
+    return words;
 }
 
-function countWords() {
+function countWords(data) {
     return 0; // TODO
 }
 
@@ -37,7 +46,7 @@ const initialState = {
         total: 300,
     },
     audio: {
-        url: null,
+        url: "",
         blob: null,
         chunks: null,
         duration: {
@@ -62,7 +71,7 @@ const initialState = {
             words: state.words,
             data: state.data,
             audio: {
-                url: null,
+                url: "",
                 blob: null,
                 chunks: null,
                 duration: {
