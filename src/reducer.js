@@ -14,11 +14,7 @@ function countWords(data) {
     var sum = 0;
     
     for (const key in data) {
-<<<<<<< Updated upstream
         sum += 10 * Math.random();
-=======
-        sum += data.key;
->>>>>>> Stashed changes
     }
 
     return sum;
