@@ -82,9 +82,10 @@ const UploadBox = (store) => {
                         handleReset={() => handleReset()}
                     />
                 </div>
-                <input type="text" placeholder="Enter text here" />
-                <div class="runbutton">
-                    <button onClick={run}>Create word cloud</button>
+                <textarea class="text-input-box" id="textinput">Enter text here</textarea>
+                {/* <input type="text" id="textinput" placeholder="Enter text here" /> */}
+                <div>
+                    <button class="runbutton" onClick={run}>Create word cloud</button>
                 </div>
             </div>
         )

@@ -7,22 +7,34 @@ const Cloud = (store) => {
     const determineColor = (value) => {
         const freq = value / store_data.data.total;
         const colors = new Map([
-            ['']
+            [0.05, 'blue'],
+            [0.1, 'navy'],
+            [0.15, 'indigo'],
+            [0.2, 'blueviolet'],
+            [0.3, 'purple'],
+            [0.4, 'magenta'],
+            [0.5, 'crimson'],
         ])
 
+        for (const key of colors.keys()) {
+            if (freq < key) {
+                return colors.get(key);
+            }
+        }
         
-        return "blue";
+        return "black";
     }
     
     const callbacks = {
         getWordColor: word => determineColor(word.value),
-        getWordTooltip: word => `${word.text} (${word.value})`,
+        // getWordTooltip: word => `${word.text} (${word.value})`,
     }
 
     const options = {
         rotations: 1,
         rotationAngles: [0],
         enableTooltip: false,
+        fontFamily: "Comfortaa"
         // rotations: 2,
         // rotationAngles: [-90, 0],
         // fontSizes: [12, 20]
