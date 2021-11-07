@@ -8,6 +8,7 @@ nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 nltk.download("universal_tagset")
 
+# -- AssemblyAPI -- 
 # Global constants for AssemblyAI
 ass_headers = {
    "authorization": '808f03ac7cc247948dfcebbc9d8bdf77',
@@ -25,8 +26,8 @@ def read_file(filename):
                break
            yield data
 
-def tts(filename):
-
+# Submits an AssemblyAI API request given a file and returns the outputted text
+def ass(filename):
     # upload file
     upload_response = requests.post(
     ass_upload_endpoint,
@@ -47,3 +48,64 @@ def tts(filename):
     # with open(filename, 'w') as f:
         # f.write(polling_response.json()['text'])
     return polling_response.json()['text']
+
+# -- NLTK Processing --
+
+# Select words in text that match the given parts of speech
+def select_tag(text, tags):
+    tagged_words = nltk.pos_tag(nltk.word_tokenize(text))
+    return [wn.morphy(i[0]) if wn.morphy(i[0])!=None else i[0] for i in tagged_words if i[1] in tags]
+
+text = 'a dog who helps people'
+
+def rHypo(hypo,depth):
+    if(depth==0):
+        return hypo
+    for h in hypo:
+        for h2 in h.hyponyms():
+            if(not h2 in hypo):
+                hypo.append(h2)
+    return rHypo(hypo,depth-1)
+    
+# Get list of semantic distances between a repository of source words and a given synset given the type and threshold distance
+def check_dist(synset,source_words,type,threshold):
+    dist = []
+    for word in source_words:
+        match=0
+        for spec_set in wn.synsets(word, pos=type):
+            if(synset.pos()!=spec_set.pos()):
+                break
+            sim = wn.lch_similarity(synset,spec_set)
+            match = max(sim,match) if sim>threshold else match
+        dist.append(match)
+    return dist
+
+nouns = select_tag(text, ['NN','NNS'])
+desc = select_tag(text, ['JJ'])
+# Removes adjectives commonly found as nouns
+for n in nouns:
+    if(len(wn.synsets(n,pos=wn.ADJ))>1):
+        nouns.remove(n)
+        desc.append(n)
+
+verbs = select_tag(text, ['VB','VBP','VBZ'])
+matches = []
+noun = nouns[0]
+nouns = nouns[1:]
+for hyponym in rHypo(wn.synsets(noun, pos=wn.NOUN),3):
+    dist = []
+    # Finds matching parts of speech in definitions
+    for a_definition in select_tag(hyponym.definition(),['JJ']):
+        for a_def_set in wn.synsets(a_definition, pos=wn.ADJ):
+            dist+=check_dist(a_def_set,desc,wn.ADJ,0.1)
+    for n_definition in select_tag(hyponym.definition(),['NN','NNS']):
+        for n_def_set in wn.synsets(n_definition, pos=wn.NOUN):
+            dist+=check_dist(n_def_set,[n for n in nouns if n!=noun],wn.NOUN,0.1)
+    for v_definition in select_tag(hyponym.definition(),['VB','VBP','VBZ']):
+        for v_def_set in wn.synsets(v_definition, pos=wn.VERB):
+            dist+=check_dist(v_def_set,verbs,wn.VERB,0.1)
+    if(dist!=[]):
+        avg = sum(dist)/len(dist)
+        if(avg>0.1):
+            matches.append((hyponym.lemma_names()[0], avg))
+print(sorted(matches,key=lambda a: a[1],reverse=True)[:10])
