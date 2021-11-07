@@ -131,8 +131,8 @@ def process():
     # POST request
     if request.method == 'POST':
         print(request.form['text'])
-        print(request.form['url'])
-        if(request.form['url']!=""):
-            return jsonify(normalize(getDescribed(ass(request.form['url']))))
+        print(request.form['audio'])
+        if(request.form['audio']!=""):
+            return jsonify(normalize(getDescribed(ass(request.form['audio']))))
         return jsonify(normalize(getDescribed(request.form['text'])))
 app.run(debug=True)

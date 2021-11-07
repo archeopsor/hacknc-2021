@@ -1,6 +1,5 @@
 function getWords(data) {
     var words = []
-
     for (const key in data.keys()) {
         words.push({
             text: key,
