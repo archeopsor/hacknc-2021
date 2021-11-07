@@ -57,13 +57,7 @@ def ass(filename):
 def select_tag(text, tags):
     tagged_words = nltk.pos_tag(nltk.word_tokenize(text))
     return [wn.morphy(i[0]) if wn.morphy(i[0])!=None else i[0] for i in tagged_words if i[1] in tags]
-<<<<<<< HEAD:wordcloud.py
-    
-=======
 
-text = 'dog breed'
-
->>>>>>> eb4496b6c5fa715352958562f5d44199cc7a0f01:public/wordcloud.py
 def rHypo(hypo,depth):
     if(depth==0):
         return hypo
@@ -137,5 +131,8 @@ def process():
     # POST request
     if request.method == 'POST':
         print(request.form['text'])
+        print(request.form['url'])
+        if(request.form['url']!=""):
+            return jsonify(normalize(getDescribed(ass(request.form['url']))))
         return jsonify(normalize(getDescribed(request.form['text'])))
 app.run(debug=True)
