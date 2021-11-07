@@ -51,7 +51,7 @@ const UploadBox = (store) => {
     }
 
     const run = () => {
-        window.alert(document.getElementById("textinput").value);
+        setShow(false);
         $.ajax({
             type: "POST",
             url: "http://127.0.0.1:5000/process",
