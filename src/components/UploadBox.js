@@ -20,7 +20,7 @@ const UploadBox = (store) => {
             window.alert("No file available. Make sure you've stopped recording before uploading.")
             return;
         }
-        setShow(false);
+        // setShow(false);
         if (store_data.audio.url) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
