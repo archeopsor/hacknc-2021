@@ -51,15 +51,23 @@ const UploadBox = (store) => {
     }
 
     const run = () => {
-        /*$.ajax({
+        window.alert(document.getElementById("textinput").value);
+        $.ajax({
             type: "POST",
-            url: "wordcloud.py",
-            data: { param: 'abc123'},
-            async: false,
-            timeout: 1000
-          }).done(function( o ) {
-             window.alert("Request run");
-          });*/
+            url: "http://127.0.0.1:5000/process",
+            data: { text: document.getElementById("textinput").value },
+            async: true,
+            timeout: 60000,
+            success: function(msg) {
+                console.log(msg)
+                store.store.dispatch({
+                    type: "newWords",
+                    payload: msg})
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
     }
 
     // If a file exists, only show a button to clear the file

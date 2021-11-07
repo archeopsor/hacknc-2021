@@ -1,5 +1,7 @@
-import requests, nltk, os, sys
+import requests, nltk, os, sys, json
+from flask import Flask, jsonify, request, render_template
 from time import sleep
+from flask_cors import CORS, cross_origin
 from nltk.corpus import wordnet as wn
 
 # NLTK dependencies
@@ -55,9 +57,7 @@ def ass(filename):
 def select_tag(text, tags):
     tagged_words = nltk.pos_tag(nltk.word_tokenize(text))
     return [wn.morphy(i[0]) if wn.morphy(i[0])!=None else i[0] for i in tagged_words if i[1] in tags]
-
-text = 'a dog who helps people'
-
+    
 def rHypo(hypo,depth):
     if(depth==0):
         return hypo
@@ -80,32 +80,56 @@ def check_dist(synset,source_words,type,threshold):
         dist.append(match)
     return dist
 
-nouns = select_tag(text, ['NN','NNS'])
-desc = select_tag(text, ['JJ'])
-# Removes adjectives commonly found as nouns
-for n in nouns:
-    if(len(wn.synsets(n,pos=wn.ADJ))>1):
-        nouns.remove(n)
-        desc.append(n)
+def getDescribed(text,num=20,threshold=0.1):
+    nouns = select_tag(text, ['NN','NNS'])
+    desc = select_tag(text, ['JJ'])
+    # Removes adjectives commonly found as nouns
+    for n in nouns:
+        if(len(wn.synsets(n,pos=wn.ADJ))>1):
+            nouns.remove(n)
+            desc.append(n)
 
-verbs = select_tag(text, ['VB','VBP','VBZ'])
-matches = []
-noun = nouns[0]
-nouns = nouns[1:]
-for hyponym in rHypo(wn.synsets(noun, pos=wn.NOUN),3):
-    dist = []
-    # Finds matching parts of speech in definitions
-    for a_definition in select_tag(hyponym.definition(),['JJ']):
-        for a_def_set in wn.synsets(a_definition, pos=wn.ADJ):
-            dist+=check_dist(a_def_set,desc,wn.ADJ,0.1)
-    for n_definition in select_tag(hyponym.definition(),['NN','NNS']):
-        for n_def_set in wn.synsets(n_definition, pos=wn.NOUN):
-            dist+=check_dist(n_def_set,[n for n in nouns if n!=noun],wn.NOUN,0.1)
-    for v_definition in select_tag(hyponym.definition(),['VB','VBP','VBZ']):
-        for v_def_set in wn.synsets(v_definition, pos=wn.VERB):
-            dist+=check_dist(v_def_set,verbs,wn.VERB,0.1)
-    if(dist!=[]):
-        avg = sum(dist)/len(dist)
-        if(avg>0.1):
-            matches.append((hyponym.lemma_names()[0], avg))
-print(sorted(matches,key=lambda a: a[1],reverse=True)[:10])
+    verbs = select_tag(text, ['VB','VBP','VBZ'])
+    matches = []
+    noun = nouns[0]
+    nouns = nouns[1:]
+    for hyponym in rHypo(wn.synsets(noun, pos=wn.NOUN),3):
+        dist = []
+        # Finds matching parts of speech in definitions
+        for a_definition in select_tag(hyponym.definition(),['JJ']):
+            for a_def_set in wn.synsets(a_definition, pos=wn.ADJ):
+                dist+=check_dist(a_def_set,desc,wn.ADJ,threshold)
+        for n_definition in select_tag(hyponym.definition(),['NN','NNS']):
+            for n_def_set in wn.synsets(n_definition, pos=wn.NOUN):
+                dist+=check_dist(n_def_set,[n for n in nouns if n!=noun],wn.NOUN,threshold)
+        for v_definition in select_tag(hyponym.definition(),['VB','VBP','VBZ']):
+            for v_def_set in wn.synsets(v_definition, pos=wn.VERB):
+                dist+=check_dist(v_def_set,verbs,wn.VERB,threshold)
+        if(dist!=[]):
+            avg = sum(dist)/len(dist)
+            if(avg>0.1):
+                matches.append((hyponym.lemma_names()[0], avg))
+    return sorted(matches,key=lambda a: a[1],reverse=True)[:num]
+
+def normalize(tuples):
+    if(len(tuples)==0):
+        return {}
+    norm = 100/tuples[0][1]
+    d = dict(tuples)
+    for k in d:
+        d[k]=(d[k]*norm)//1
+    return d
+
+# Flask app stuffs
+app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route('/process', methods=['GET','POST'])
+@cross_origin()
+def process():
+    # POST request
+    if request.method == 'POST':
+        print(request.form['text'])
+        return jsonify(normalize(getDescribed(request.form['text'])))
+app.run(debug=True)
