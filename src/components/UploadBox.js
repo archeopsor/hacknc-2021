@@ -67,7 +67,8 @@ const UploadBox = (store) => {
     if (show) {
         return (
             <div>
-                <h1 class="center">Choose a method to generate words:</h1>
+                <h1 class="center"><u>Choose a method to generate words:</u></h1>
+                <textarea class="text-input-box" id="textinput">Enter text here</textarea>
                 <div class="fileupload">
                     <input type="file" accept="audio/*" />
                 </div>
@@ -82,7 +83,6 @@ const UploadBox = (store) => {
                         handleReset={() => handleReset()}
                     />
                 </div>
-                <textarea class="text-input-box" id="textinput">Enter text here</textarea>
                 {/* <input type="text" id="textinput" placeholder="Enter text here" /> */}
                 <div>
                     <button class="runbutton" onClick={run}>Create word cloud</button>

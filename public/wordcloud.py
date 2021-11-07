@@ -56,7 +56,7 @@ def select_tag(text, tags):
     tagged_words = nltk.pos_tag(nltk.word_tokenize(text))
     return [wn.morphy(i[0]) if wn.morphy(i[0])!=None else i[0] for i in tagged_words if i[1] in tags]
 
-text = 'a dog who helps people'
+text = 'dog breed'
 
 def rHypo(hypo,depth):
     if(depth==0):

@@ -8,3 +8,8 @@ body {
 
     width: 100%;
 }
+
+.suggestions {
+    text-align: left;
+    margin-top: 30px;
+}
