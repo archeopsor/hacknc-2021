@@ -37,7 +37,7 @@ const Cloud = (store) => {
         fontFamily: "Comfortaa",
         // rotations: 2,
         // rotationAngles: [-90, 0],
-        fontSizes: [10, 40]
+        fontSizes: [20, 40]
       };
 
     return (

@@ -80,7 +80,7 @@ def check_dist(synset,source_words,type,threshold):
         dist.append(match)
     return dist
 
-def getDescribed(text,num=20,threshold=0.1):
+def getDescribed(text,num=10,threshold=0.1):
     nouns = select_tag(text, ['NN','NNS'])
     desc = select_tag(text, ['JJ'])
     # Removes adjectives commonly found as nouns
@@ -108,7 +108,7 @@ def getDescribed(text,num=20,threshold=0.1):
         if(dist!=[]):
             avg = sum(dist)/len(dist)
             if(avg>0.1):
-                matches.append((hyponym.lemma_names()[0], avg))
+                matches.append((hyponym.lemma_names()[0].replace("_"," "), avg))
     return sorted(matches,key=lambda a: a[1],reverse=True)[:num]
 
 def normalize(tuples):
