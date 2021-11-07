@@ -3,10 +3,9 @@ function getWords(data) {
     for (const key in data) {
         words.push({
             text: key,
-            value: data.key
+            value: 10 * Math.random()
         })
     }
-    console.log(words)
 
     return words;
 }
@@ -14,8 +13,8 @@ function getWords(data) {
 function countWords(data) {
     var sum = 0;
     
-    for (const val in data.values()) {
-        sum += val;
+    for (const key in data) {
+        sum += 10 * Math.random();
     }
 
     return sum;
