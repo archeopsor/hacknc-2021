@@ -135,4 +135,4 @@ def process():
         if(request.form['audio']!=""):
             return jsonify(normalize(getDescribed(ass(request.form['audio']))))
         return jsonify(normalize(getDescribed(request.form['text'])))
-app.run(debug=True)
+app.run(host="0.0.0.0", port=80)
