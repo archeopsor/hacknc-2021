@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/hacknc-2021/static/css/main.e2b5b537.chunk.css",
+    "main.js": "/hacknc-2021/static/js/main.6b8fed47.chunk.js",
+    "main.js.map": "/hacknc-2021/static/js/main.6b8fed47.chunk.js.map",
+    "runtime-main.js": "/hacknc-2021/static/js/runtime-main.8f1f859f.js",
+    "runtime-main.js.map": "/hacknc-2021/static/js/runtime-main.8f1f859f.js.map",
+    "static/css/2.dcd706b1.chunk.css": "/hacknc-2021/static/css/2.dcd706b1.chunk.css",
+    "static/js/2.c939edac.chunk.js": "/hacknc-2021/static/js/2.c939edac.chunk.js",
+    "static/js/2.c939edac.chunk.js.map": "/hacknc-2021/static/js/2.c939edac.chunk.js.map",
+    "index.html": "/hacknc-2021/index.html",
+    "static/css/2.dcd706b1.chunk.css.map": "/hacknc-2021/static/css/2.dcd706b1.chunk.css.map",
+    "static/css/main.e2b5b537.chunk.css.map": "/hacknc-2021/static/css/main.e2b5b537.chunk.css.map",
+    "static/js/2.c939edac.chunk.js.LICENSE.txt": "/hacknc-2021/static/js/2.c939edac.chunk.js.LICENSE.txt",
+    "static/media/microphone~MMbrAzIj.svg": "/hacknc-2021/static/media/microphone~MMbrAzIj.52a4fd8a.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.8f1f859f.js",
+    "static/css/2.dcd706b1.chunk.css",
+    "static/js/2.c939edac.chunk.js",
+    "static/css/main.e2b5b537.chunk.css",
+    "static/js/main.6b8fed47.chunk.js"
+  ]
+}
